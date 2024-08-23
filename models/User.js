@@ -1,7 +1,7 @@
-const { model, Schema } = require('mongoose');
+const { model, Schema, mongoose } = require('mongoose');
 const { hash, compare } = require('bcrypt');
 
-const { Thought } = require('./Thought');
+const Thought  = require('./Thought');
  
 
 const userSchema = new Schema ({
@@ -20,15 +20,18 @@ const userSchema = new Schema ({
 		type: String,
 		unique: true,
 		required: true,
-		minLength: [6, 'Your username must be at least 6 characters long'],
+		trimmed: true
 		
 	},
-	thoughts: {
-		references: [Thought]
-	},
-	friends: {
-		references: [Friend]
-	}
+	thoughts: [
+		{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Thought'
+		}
+]
+	// friends: {
+	// 	references: [Friend]
+	// }
 });
 
 userSchema.virtual('friendCount').get(function() {
