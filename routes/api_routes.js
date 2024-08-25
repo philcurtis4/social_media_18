@@ -13,6 +13,12 @@ router.get('/user/:id', user_controller.getSingleUser);
 //Create a User
 router.post('/user', user_controller.createUser);
 
+//Update a User
+router.put('/user/:id', user_controller.updateUser);
+
+//Delete a User
+router.delete('/user/:id', user_controller.deleteUser);
+
 
 
 //THOUGHTS
@@ -25,5 +31,11 @@ router.get('/thought/:id', user_controller.getSingleThought);
 
 //Create a thought
 router.post('/thought', user_controller.createThought);
+
+//Update a Thought
+router.put('/thought/:id', user_controller.updateThought);
+
+//Delete a Thought
+router.delete('/thought/:id', user_controller.deleteThought);
 
 module.exports = router;

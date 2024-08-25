@@ -9,7 +9,7 @@ module.exports = {
 
 	async getSingleUser (req, res) {
 		
-		const user = await User.findById(req.params.id);
+		const user = await User.findById(req.params.id).populate('thoughts');
 		
 		res.json(user);
 	},
@@ -25,6 +25,27 @@ module.exports = {
 			message: 'New user added successfully',
 			user: newUser
 		});
+	},
+
+	async updateUser (req, res) {
+		const user = await User.findById(req.params.id);
+
+		user.username = req.body.username;
+
+		const updatedUser = await user.save();
+
+		res.json({
+			user
+		})
+	},
+
+	async deleteUser (req, res) {
+	
+		await User.deleteOne({_id: req.params.id});
+
+		res.json({
+			message: 'User deleted successfully'
+		})
 	},
 
 	async getAllThoughts (req, res) {
@@ -44,10 +65,37 @@ module.exports = {
 			thoughtText: req.body.thoughtText,
 			username: req.body.username,
 		});
-
+		
+		const updatedUser = await User.findByIdAndUpdate(
+			req.body.userId,
+			{$push: {thoughts: newThought._id}},
+			{new: true},
+		)
+		
 		res.json({
 			message: 'Successfully create a thought!',
 			thought: newThought,
+		})
+	},
+
+	async updateThought (req, res) {
+		const thought = await Thought.findById(req.params.id);
+
+		thought.thoughtText = req.body.thoughtText;
+
+		await thought.save();
+
+		res.json({
+			message: 'Thought updateded successfully'
+		})
+
+	},
+
+	async deleteThought (req, res) {
+		await Thought.deleteOne({_id: req.params.id});
+
+		res.json({
+			message: 'Thought deleted successfully'
 		})
 	}
 }
