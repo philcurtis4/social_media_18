@@ -38,4 +38,22 @@ router.put('/thought/:id', user_controller.updateThought);
 //Delete a Thought
 router.delete('/thought/:id', user_controller.deleteThought);
 
+
+//Friends
+
+//Add Friend
+router.post('/users/:userId/friends/:friendId', user_controller.addFriend);
+
+//Delete Friend
+router.delete('/users/:userId/friends/:friendId', user_controller.deleteFriend);
+
+
+//Reactions
+
+//Post Reaction
+router.post('/thoughts/:thoughtId/reactions', user_controller.createReaction);
+
+//Delete Reaction
+router.delete('/thoughts/:thoughtId/reactions', user_controller.deleteReaction);
+
 module.exports = router;

@@ -1,4 +1,4 @@
-const {User, Thought} = require('../models');
+const {User, Thought, Reaction} = require('../models');
 
 module.exports = {
 	async getAllUsers (req, res) {
@@ -96,6 +96,71 @@ module.exports = {
 
 		res.json({
 			message: 'Thought deleted successfully'
+		})
+	},
+
+
+
+
+	async addFriend (req, res) {
+		
+		const user1 = await User.findById(req.params.userId);
+		const friend = User.findById(req.params.friendId);
+
+		user1.friends.push(req.params.friendId);
+		await user1.save();
+
+		res.json({
+			message: 'Friend added'
+		})
+	},
+
+	async deleteFriend (req, res) {
+		const user = await User.findById(req.params.userId);
+		
+		
+		user.friends.pull(req.params.friendId);
+
+		await user.save();
+
+		res.json({
+			message: 'Friend Deleted'
+		})
+	},
+
+
+
+	async createReaction (req, res) {
+		const thought = await Thought.findById(req.params.thoughtId);
+
+		const newReaction = {
+			reactionBody: req.body.reactionBody,
+			username: req.body.username
+		};
+
+		thought.reactions.push(newReaction);
+		await thought.save();
+
+		res.json({
+			message: 'Added Reaction'
+		})
+	},
+
+
+	async deleteReaction (req,res) {
+		await Thought.findOneAndUpdate({
+			_id: req.params.thoughtId
+		}, {
+			$pull: {
+				reactions: {
+					reactionId: req.body.reactionId
+				}
+			}
+		});
+
+
+		res.json({
+			message: 'Reaction Deleted'
 		})
 	}
 }
