@@ -6,11 +6,10 @@ This project was undertaken as part of a coding bootcamp. The goal of this chall
 If you wish to run this project locally on your own computer, assuming you have git installed, input the following code in your terminal.
 git clone https://github.com/philcurtis4/social_media_18
 ## Usage
-The live site may be viewed at the following url.
-https://YOUR_USERNAME.github.io/REPO_NAME/
-Here is a screenshot of the page.
-![Alt text](./assets/images/final-result.png)
-    
+Here is a video showing the functionality of the backend created:
+https://drive.google.com/file/d/1oS7W02GR1BA5ZzaCyXCPHZCt3rm8F4Fy/view?usp=sharing
+
+
 ## Credits
 The challenge was given by the rutgers bootcamp and completed by Philip Curtis
 ## License
